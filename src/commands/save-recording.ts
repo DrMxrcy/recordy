@@ -18,7 +18,6 @@ const command: Command = {
                 .setName('minutes')
                 .setDescription('How many minutes should be saved')
                 .setMinValue(1)
-                .setMaxValue(10)
                 .setMaxValue(envs.MAX_RECORD_TIME_MINUTES)
         )
         .addStringOption((option) =>
