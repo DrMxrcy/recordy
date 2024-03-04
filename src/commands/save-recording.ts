@@ -1,7 +1,7 @@
 import { Command } from '../utils/appCommands';
 import { APIApplicationCommandOptionChoice, SlashCommandBuilder } from 'discord.js';
 import { voiceRecorder } from '../utils/voice';
-import { envs } from './utils/environment';
+import { envs } from '../utils/environment';
 import { AudioExportType } from '@kirdock/discordjs-voice-recorder/lib/models/types';
 
 type Choices = APIApplicationCommandOptionChoice & {value: AudioExportType};
