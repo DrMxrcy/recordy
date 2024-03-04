@@ -13,6 +13,6 @@ RUN rm -rf ./src
 
 ENV CLIENT_TOKEN = ""
 ENV JOIN_AUTOMATICALLY = ""
-ENV MAX_RECORD_TIME_MINUTES = ""
+ENV MAX_RECORD_TIME_MINUTES = "10"
 
 CMD [ "node", "./dist/index.js"]
