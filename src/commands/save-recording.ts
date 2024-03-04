@@ -12,13 +12,14 @@ const choices: Choices[] = [
 const command: Command = {
     data: new SlashCommandBuilder()
         .setName('save')
-        .setDescription('Save the last x (up to 60) minutes')
+        .setDescription(`Save the last x minutes ( Max ${process.env.MAX_RECORD_TIME_MINUTES} minutes)`)
         .addIntegerOption(option =>
             option
                 .setName('minutes')
                 .setDescription('How many minutes should be saved')
                 .setMinValue(1)
-                .setMaxValue(60)
+                .setMaxValue(10)
+                .setMaxValue(envs.MAX_RECORD_TIME_MINUTES)
         )
         .addStringOption((option) =>
             option.setName('type').setDescription('save as single file or as zip file with a file per user').setChoices(...choices)
