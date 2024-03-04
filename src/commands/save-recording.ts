@@ -17,7 +17,7 @@ const command: Command = {
         .addIntegerOption(option =>
             option
                 .setName('minutes')
-                .setDescription('How many minutes should be saved')
+                .setDescription('How many minutes should be saved ( Max 60 minutes)')
                 .setMinValue(1)
                 .setMaxValue(60)
         )
