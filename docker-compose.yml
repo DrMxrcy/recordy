@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Assuming the Dockerfile is in the same directory
+    environment:
+      CLIENT_TOKEN: "YourDiscordBotToken"
+      JOIN_AUTOMATICALLY: "false"
+      MAX_RECORD_TIME_MINUTES: "10"
+    volumes:
+      - ./data:/app/data
