@@ -13,7 +13,7 @@ const choices: Choices[] = [
 const command: Command = {
     data: new SlashCommandBuilder()
         .setName('save')
-        .setDescription(`Save the last x minutes ( Max ${process.env.MAX_RECORD_TIME_MINUTES} minutes)`)
+        .setDescription(`Save the last x minutes (Max ${envs.MAX_RECORD_TIME_MINUTES} minutes)`)
         .addIntegerOption(option =>
             option
                 .setName('minutes')
@@ -36,7 +36,7 @@ const command: Command = {
         }
 
         await interaction.deferReply();
-        const minutes = interaction.options.getInteger('minutes');
+        const minutes = interaction.options.getInteger('minutes') ?? 1;
         const exportType = (interaction.options.getString('type') as AudioExportType | null) ?? undefined;
         const buffer = await voiceRecorder.getRecordedVoiceAsBuffer(interaction.guildId, exportType ?? undefined, minutes ?? undefined);
         const date = new Date().toISOString();
