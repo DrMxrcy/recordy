@@ -1,7 +1,6 @@
 import { Command } from '../utils/appCommands';
 import { APIApplicationCommandOptionChoice, SlashCommandBuilder } from 'discord.js';
 import { voiceRecorder } from '../utils/voice';
-import { envs } from '../utils/environment';
 import { AudioExportType } from '@kirdock/discordjs-voice-recorder/lib/models/types';
 
 type Choices = APIApplicationCommandOptionChoice & {value: AudioExportType};
@@ -13,13 +12,13 @@ const choices: Choices[] = [
 const command: Command = {
     data: new SlashCommandBuilder()
         .setName('save')
-        .setDescription(`Save the last x minutes (Max ${envs.MAX_RECORD_TIME_MINUTES} minutes)`)
+        .setDescription('Save the last x (up to 60) minutes')
         .addIntegerOption(option =>
             option
                 .setName('minutes')
                 .setDescription('How many minutes should be saved')
                 .setMinValue(1)
-                .setMaxValue(envs.MAX_RECORD_TIME_MINUTES)
+                .setMaxValue(60)
         )
         .addStringOption((option) =>
             option.setName('type').setDescription('save as single file or as zip file with a file per user').setChoices(...choices)
@@ -36,9 +35,9 @@ const command: Command = {
         }
 
         await interaction.deferReply();
-        const minutes = interaction.options.getInteger('minutes') ?? 1;
+        const minutes = interaction.options.getInteger('minutes');
         const exportType = (interaction.options.getString('type') as AudioExportType | null) ?? undefined;
-        const buffer = await voiceRecorder.getRecordedVoiceAsBuffer(interaction.guildId, exportType, minutes as number);
+        const buffer = await voiceRecorder.getRecordedVoiceAsBuffer(interaction.guildId, exportType ?? undefined, minutes ?? undefined);
         const date = new Date().toISOString();
 
         let fileType: string, fileName: string;
